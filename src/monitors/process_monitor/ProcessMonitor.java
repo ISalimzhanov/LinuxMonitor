@@ -1,10 +1,10 @@
 package monitors.process_monitor;
 
+import packing.Packing;
+
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.Map;
+import java.util.*;
 import java.time.LocalTime;
 
 public class ProcessMonitor {
@@ -82,29 +82,60 @@ public class ProcessMonitor {
     }
 
     private void transferProcessesToCash(LinkedList<Map<String, String>> processes){
+        Packing packager = new Packing("processes.json");
         HashMap<String, String> processData;
         String[] commandArray;
+        String[] currentProcesses = new String[processes.size()];
         String processName;
         System.out.println(processes.size());
+        Float memInitial;
+        Float memAdditional;
+        Float cpuInitial;
+        Float cpuAdditional;
+        int num;
         for(int i=0; i< processes.size(); i++){
-            System.out.println("got here");
             commandArray = processes.get(i).get("COMMAND").split("/");
             processName = commandArray[commandArray.length-1];
-            processData = new HashMap<String, String>();
-            processData.put("%MEM", processes.get(i).get("%MEM"));
-            processData.put("%CPU", processes.get(i).get("%CPU"));
-            processData.put("STAT", processes.get(i).get("STAT"));
-            processData.put("RSS", processes.get(i).get("RSS"));
-            processData.put("TTY", processes.get(i).get("TTY"));
-            processData.put("PID", processes.get(i).get("PID"));
-            processData.put("START", processes.get(i).get("START"));
-            processData.put("TIME", processes.get(i).get("TIME"));
-            processData.put("COMMAND", processes.get(i).get("COMMAND"));
-            processData.put("USER", processes.get(i).get("USER"));
-            processData.put("VSZ", processes.get(i).get("VSZ"));
-            processData.put("NUM", "1");
-            this.cash.put(processName, processData);
+            currentProcesses[i] = processName;
+            if(this.cash.get(processName) == null){
+                processData = new HashMap<String, String>();
+                processData.put("%MEM", processes.get(i).get("%MEM"));
+                processData.put("%CPU", processes.get(i).get("%CPU"));
+                processData.put("STAT", processes.get(i).get("STAT"));
+                processData.put("RSS", processes.get(i).get("RSS"));
+                processData.put("TTY", processes.get(i).get("TTY"));
+                processData.put("PID", processes.get(i).get("PID"));
+                processData.put("START", processes.get(i).get("START"));
+                processData.put("TIME", processes.get(i).get("TIME"));
+                processData.put("COMMAND", processes.get(i).get("COMMAND"));
+                processData.put("USER", processes.get(i).get("USER"));
+                processData.put("VSZ", processes.get(i).get("VSZ"));
+                processData.put("NUM", "1");
+                this.cash.put(processName, processData);
+            }else{
+                this.cash.get(processName).put("NUM", String.valueOf(Integer.parseInt(this.cash.get(processName).get("NUM"))+1));
+                num = Integer.parseInt(this.cash.get(processName).get("NUM"));
+                memInitial = Float.parseFloat(this.cash.get(processName).get("%MEM"));
+                memAdditional = Float.parseFloat(processes.get(i).get("%MEM"));
+                cpuInitial = Float.parseFloat(this.cash.get(processName).get("%CPU"));
+                cpuAdditional = Float.parseFloat(processes.get(i).get("%CPU"));
+                this.cash.get(processName).put("TIME", processes.get(i).get("TIME");
+                this.cash.get(processName).put("%MEM", String.valueOf( (memAdditional+memInitial)/num ));
+                this.cash.get(processName).put("%CPU", String.valueOf( (cpuAdditional+cpuInitial)/num ));
+
+            }
         }
+
+        Iterator cashIterator = this.cash.entrySet().iterator();
+        while(cashIterator.hasNext()){
+            Map.Entry mapElement = (Map.Entry)cashIterator.next();
+            String name = (String) mapElement.getKey();
+            if(!Arrays.asList(currentProcesses).contains(name)){
+                packager.packIntoFile(this.cash.get(name));
+                this.cash.put(name, null);
+            }
+        }
+
     }
 
     public void run() {
