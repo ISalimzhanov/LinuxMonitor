@@ -23,7 +23,7 @@ public class Controller {
         try {
             root = FXMLLoader.load(getClass().getResource("stats.fxml"));
             Stage stage = new Stage();
-            stage.setTitle("Stats");
+            stage.setTitle("Day information");
             stage.setScene(new Scene(root));
             stage.show();
         }
