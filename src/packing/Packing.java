@@ -66,7 +66,7 @@ public class Packing {
             Object obj = jsonParser.parse(reader);
 
             processesWritten = (JSONArray) obj;
-            System.out.println(processesWritten);
+            //System.out.println(processesWritten);
             //String processName = this.getProcessName(process);
             processesWritten.add(processData);
 
