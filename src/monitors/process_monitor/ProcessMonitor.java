@@ -9,6 +9,24 @@ import java.time.LocalTime;
 
 public class ProcessMonitor {
     private final String username;
+    private HashMap<String, HashMap<String, String>> cash;
+    /*
+ 0 = {HashMap@1013}  size = 11
+ "%MEM" -> "0.1"
+ "%CPU" -> "0.0"
+ "STAT" -> "Ss"
+ "RSS" -> "10836"
+ "TTY" -> "?"
+ "PID" -> "1586"
+ "START" -> "22:55"
+ "TIME" -> "0:00"
+ "COMMAND" -> "/lib/systemd/systemd"
+ "USER" -> "iskander"
+ "VSZ" -> "19516"
+ "NUM" -> "1"
+
+ NUM - number of checks of a working process for calculating average CPU/RAM utilisation
+ */
 
     public ProcessMonitor(String user) {
         username = user;
@@ -63,10 +81,38 @@ public class ProcessMonitor {
         return actives;
     }
 
+    private void transferProcessesToCash(LinkedList<Map<String, String>> processes){
+        HashMap<String, String> processData;
+        String[] commandArray;
+        String processName;
+        System.out.println(processes.size());
+        for(int i=0; i< processes.size(); i++){
+            System.out.println("got here");
+            commandArray = processes.get(i).get("COMMAND").split("/");
+            processName = commandArray[commandArray.length-1];
+            processData = new HashMap<String, String>();
+            processData.put("%MEM", processes.get(i).get("%MEM"));
+            processData.put("%CPU", processes.get(i).get("%CPU"));
+            processData.put("STAT", processes.get(i).get("STAT"));
+            processData.put("RSS", processes.get(i).get("RSS"));
+            processData.put("TTY", processes.get(i).get("TTY"));
+            processData.put("PID", processes.get(i).get("PID"));
+            processData.put("START", processes.get(i).get("START"));
+            processData.put("TIME", processes.get(i).get("TIME"));
+            processData.put("COMMAND", processes.get(i).get("COMMAND"));
+            processData.put("USER", processes.get(i).get("USER"));
+            processData.put("VSZ", processes.get(i).get("VSZ"));
+            processData.put("NUM", "1");
+            this.cash.put(processName, processData);
+        }
+    }
+
     public void run() {
         while (true) {
             long clock = LocalTime.now().toNanoOfDay();
             LinkedList<Map<String, String>> processes = this.getActive();
+            System.out.println("got here 0");
+            this.transferProcessesToCash(processes);
             //toDo
             System.out.println((LocalTime.now().toNanoOfDay() - clock) / Math.pow(10, 9));
         }
