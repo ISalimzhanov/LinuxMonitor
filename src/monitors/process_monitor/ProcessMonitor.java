@@ -5,15 +5,23 @@ import packing.Packing;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.*;
-import java.time.LocalTime;
 
-public class ProcessMonitor {
+public class ProcessMonitor extends Thread {
     private final String username;
     private final HashMap<String, HashMap<String, String>> cash;
+    private static final Map<String, ProcessMonitor> instance = new HashMap<>();
+    private volatile boolean keepRunning = true;
 
-    public ProcessMonitor(String user) {
+    private ProcessMonitor(String user) {
         username = user;
         cash = new HashMap<>();
+    }
+
+    public static ProcessMonitor getInstance(String user) {
+        if (!instance.containsKey(user)) {
+            instance.put(user, new ProcessMonitor(user));
+        }
+        return instance.get(user);
     }
 
     private static LinkedList<String> get_words(String sentence) {
@@ -21,7 +29,6 @@ public class ProcessMonitor {
         StringBuilder word = new StringBuilder();
         for (int i = 0; i < sentence.length(); ++i) {
             if (sentence.charAt(i) == ' ' && !word.toString().isEmpty()) {
-                //System.out.println(word.toString());
                 res.add(word.toString());
                 word = new StringBuilder();
             } else if (sentence.charAt(i) != ' ') {
@@ -65,13 +72,21 @@ public class ProcessMonitor {
         return actives;
     }
 
-    private void transferProcessesToCash(LinkedList<Map<String, String>> processes) {
+    public void packageCash() {
+        Packing packager = new Packing("processes.json");
+        for (Map.Entry<String, HashMap<String, String>> stringHashMapEntry : this.cash.entrySet()) {
+            String name = stringHashMapEntry.getKey();
+            packager.packIntoFile(this.cash.get(name));
+        }
+        this.cash.clear();
+    }
+
+    private void transferToCash(LinkedList<Map<String, String>> processes) {
         Packing packager = new Packing("processes.json");
         HashMap<String, String> processData;
         String[] commandArray;
         String[] currentProcesses = new String[processes.size()];
         String processName;
-        //System.out.println(processes.size());
 
         LinkedList<String> to_delete = new LinkedList<>();
         for (Map.Entry<String, HashMap<String, String>> stringHashMapEntry : this.cash.entrySet()) {
@@ -122,12 +137,18 @@ public class ProcessMonitor {
     }
 
     public void run() {
-        while (true) {
-            long clock = LocalTime.now().toNanoOfDay();
+        while (this.keepRunning) {
             LinkedList<Map<String, String>> processes = this.getActive();
-            //System.out.println("got here 0");
-            this.transferProcessesToCash(processes);
-            System.out.println((LocalTime.now().toNanoOfDay() - clock) / Math.pow(10, 9));
+            this.transferToCash(processes);
         }
+        this.packageCash();
+    }
+
+    public boolean isKeepRunning() {
+        return keepRunning;
+    }
+
+    public void setKeepRunning(boolean keepRunning) {
+        this.keepRunning = keepRunning;
     }
 }
