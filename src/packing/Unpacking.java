@@ -47,12 +47,11 @@ public class Unpacking {
     }
 
 
-
-    public HashMap<String, HashMap<String, String>> getData(){
+    public ArrayList<HashMap<String, String>> getProcessData(String processName){
         JSONArray processData = new JSONArray();
 
         JSONParser jsonParser = new JSONParser();
-        HashMap<String, HashMap<String, String>> data = new HashMap<>();
+        ArrayList<HashMap<String, String>> data = new ArrayList<>();
 
         try (FileReader reader = new FileReader("employees.json"))
         {
@@ -63,7 +62,40 @@ public class Unpacking {
             System.out.println(processes);
 
             //Iterate over employee array
-            processes.forEach( proc -> data.put(this.getProcessName( this.parseProcesses( (JSONObject) proc ) ), this.parseProcesses( (JSONObject) proc ) ) );
+            for(int i=0; i<processes.size(); i++){
+                if(processName.equals( this.getProcessName(this.parseProcesses( (JSONObject) processes.get(i) )) )){
+                    data.add( this.parseProcesses( (JSONObject) processes.get(i) ) );
+                }
+            }
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return data;
+    }
+
+
+
+    public ArrayList<HashMap<String, String>> getData(){
+        JSONArray processData = new JSONArray();
+
+        JSONParser jsonParser = new JSONParser();
+        ArrayList<HashMap<String, String>> data = new ArrayList<>();
+
+        try (FileReader reader = new FileReader("employees.json"))
+        {
+            //Read JSON file
+            Object obj = jsonParser.parse(reader);
+
+            JSONArray processes = (JSONArray) obj;
+            System.out.println(processes);
+
+            //Iterate over employee array
+            processes.forEach( proc -> data.add( this.parseProcesses( (JSONObject) proc ) ) );
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();
