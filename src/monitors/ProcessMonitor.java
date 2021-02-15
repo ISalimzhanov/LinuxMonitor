@@ -1,9 +1,10 @@
-package monitors.process_monitor;
+package monitors;
 
 import packing.Packing;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.util.*;
 
 public class ProcessMonitor extends Thread {
@@ -24,7 +25,7 @@ public class ProcessMonitor extends Thread {
         return instance.get(user);
     }
 
-    private static LinkedList<String> get_words(String sentence) {
+    public static LinkedList<String> getWords(String sentence) {
         LinkedList<String> res = new LinkedList<>();
         StringBuilder word = new StringBuilder();
         for (int i = 0; i < sentence.length(); ++i) {
@@ -41,8 +42,8 @@ public class ProcessMonitor extends Thread {
         return res;
     }
 
-    public Map<String, String> processDetails(LinkedList<String> parameters, String info) {
-        LinkedList<String> values = get_words(info);
+    public static Map<String, String> getProcessDetails(LinkedList<String> parameters, String processInfo) {
+        LinkedList<String> values = getWords(processInfo);
         Map<String, String> res = new HashMap<>();
         for (int i = 0; i < parameters.size(); ++i) {
             res.put(parameters.get(i), values.get(i));
@@ -58,11 +59,11 @@ public class ProcessMonitor extends Thread {
             BufferedReader input =
                     new BufferedReader(new InputStreamReader(p.getInputStream()));
             line = input.readLine();
-            LinkedList<String> parameters = get_words(line);
+            LinkedList<String> parameters = getWords(line);
             while ((line = input.readLine()) != null) {
-                Map<String, String> process_info = this.processDetails(parameters, line);
-                if (process_info.get("USER").equals(this.username)) {
-                    actives.add(process_info);
+                Map<String, String> processInfo = getProcessDetails(parameters, line);
+                if (processInfo.get("USER").equals(this.username) && processInfo.get("STAT").equals("R")) {
+                    actives.add(processInfo);
                 }
             }
             input.close();
@@ -88,15 +89,15 @@ public class ProcessMonitor extends Thread {
         String[] currentProcesses = new String[processes.size()];
         String processName;
 
-        LinkedList<String> to_delete = new LinkedList<>();
+        LinkedList<String> toDelete = new LinkedList<>();
         for (Map.Entry<String, HashMap<String, String>> stringHashMapEntry : this.cash.entrySet()) {
             String name = stringHashMapEntry.getKey();
             if (!Arrays.asList(currentProcesses).contains(name)) {
                 packager.packIntoFile(this.cash.get(name));
-                to_delete.add(name);
+                toDelete.add(name);
             }
         }
-        for (String s : to_delete) {
+        for (String s : toDelete) {
             this.cash.remove(s);
         }
 

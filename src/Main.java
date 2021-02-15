@@ -1,8 +1,11 @@
-import monitors.process_monitor.ProcessMonitor;
+import monitors.ProcessMonitor;
+import monitors.test.ProcessMonitorTest;
 
 public class Main {
     public static void main(String[] args) {
-        ProcessMonitor p = ProcessMonitor.getInstance("iskander");
+        ProcessMonitorTest test = new ProcessMonitorTest();
+        test.run();
+        /*ProcessMonitor p = ProcessMonitor.getInstance("iskander");
         p.start();
         Runtime runtime = Runtime.getRuntime();
         runtime.addShutdownHook(
@@ -16,6 +19,6 @@ public class Main {
                         }
                     }
                 }
-        );
+        );*/
     }
 }

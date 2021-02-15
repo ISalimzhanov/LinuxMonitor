@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -15,21 +16,21 @@ import org.json.simple.parser.ParseException;
 public class Unpacking {
     private String file;
 
-    public Unpacking(String fileName){
+    public Unpacking(String fileName) {
         this.file = fileName;
     }
 
-    public void changeFile(String fileName){
+    public void changeFile(String fileName) {
         file = fileName;
     }
 
-    private String getProcessName(HashMap<String, String> process){
+    private String getProcessName(HashMap<String, String> process) {
         String[] arrayCommand = process.get("COMMAND").split("/");
-        String processName = arrayCommand[arrayCommand.length-1];
+        String processName = arrayCommand[arrayCommand.length - 1];
         return processName;
     }
 
-    private HashMap<String,String> parseProcesses(JSONObject process){
+    private HashMap<String, String> parseProcesses(JSONObject process) {
         HashMap<String, String> processMap = new HashMap<>();
         processMap.put("%MEM", process.get("%MEM").toString());
         processMap.put("%CPU", process.get("%CPU").toString());
@@ -47,14 +48,13 @@ public class Unpacking {
     }
 
 
-    public ArrayList<HashMap<String, String>> getProcessData(String processName){
+    public LinkedList<HashMap<String, String>> getProcessData(String processName) {
         JSONArray processData = new JSONArray();
 
         JSONParser jsonParser = new JSONParser();
-        ArrayList<HashMap<String, String>> data = new ArrayList<>();
+        LinkedList<HashMap<String, String>> data = new LinkedList<>();
 
-        try (FileReader reader = new FileReader("employees.json"))
-        {
+        try (FileReader reader = new FileReader(this.file)) {
             //Read JSON file
             Object obj = jsonParser.parse(reader);
 
@@ -62,9 +62,9 @@ public class Unpacking {
             System.out.println(processes);
 
             //Iterate over employee array
-            for(int i=0; i<processes.size(); i++){
-                if(processName.equals( this.getProcessName(this.parseProcesses( (JSONObject) processes.get(i) )) )){
-                    data.add( this.parseProcesses( (JSONObject) processes.get(i) ) );
+            for (int i = 0; i < processes.size(); i++) {
+                if (processName.equals(this.getProcessName(this.parseProcesses((JSONObject) processes.get(i))))) {
+                    data.add(this.parseProcesses((JSONObject) processes.get(i)));
                 }
             }
 
@@ -79,15 +79,13 @@ public class Unpacking {
     }
 
 
-
-    public ArrayList<HashMap<String, String>> getData(){
+    public ArrayList<HashMap<String, String>> getData() {
         JSONArray processData = new JSONArray();
 
         JSONParser jsonParser = new JSONParser();
         ArrayList<HashMap<String, String>> data = new ArrayList<>();
 
-        try (FileReader reader = new FileReader("employees.json"))
-        {
+        try (FileReader reader = new FileReader(this.file)) {
             //Read JSON file
             Object obj = jsonParser.parse(reader);
 
@@ -95,7 +93,7 @@ public class Unpacking {
             System.out.println(processes);
 
             //Iterate over employee array
-            processes.forEach( proc -> data.add( this.parseProcesses( (JSONObject) proc ) ) );
+            processes.forEach(proc -> data.add(this.parseProcesses((JSONObject) proc)));
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();
