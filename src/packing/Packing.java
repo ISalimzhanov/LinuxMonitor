@@ -18,7 +18,7 @@ public class Packing {
 
     public Packing(String fileName){
         this.file = fileName;
-        if(!new File("path/to/file.txt").isFile()){
+        if(!new File(String.format("path/to/%s", fileName)).isFile()){
             try {
                 File myObj = new File(this.file);
                 myObj.createNewFile();
@@ -29,7 +29,6 @@ public class Packing {
                     e.printStackTrace();
                 }
             } catch (IOException e) {
-                System.out.println("An error occurred.");
                 e.printStackTrace();
             }
         }
@@ -69,19 +68,11 @@ public class Packing {
             Object obj = jsonParser.parse(reader);
 
             processesWritten = (JSONArray) obj;
-            System.out.println("1___");
-            System.out.println(processesWritten);
-            System.out.println("2___");
             //String processName = this.getProcessName(process);
             processesWritten.add(processData);
-            System.out.println("1___");
-            System.out.println(processesWritten);
-            System.out.println("2___");
             reader.close();
 
             try(FileWriter writer = new FileWriter(this.file, false)){
-                System.out.println("data check");
-                System.out.println(processesWritten.toJSONString());
                 writer.write(processesWritten.toJSONString());
                 writer.flush();
                 writer.close();

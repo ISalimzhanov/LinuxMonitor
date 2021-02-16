@@ -4,7 +4,6 @@ import packing.Packing;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.nio.charset.StandardCharsets;
 import java.util.*;
 
 public class ProcessMonitor extends Thread {
@@ -51,6 +50,10 @@ public class ProcessMonitor extends Thread {
         return res;
     }
 
+    private boolean threshold(Map<String, String> processDetails) {
+        return processDetails.get("USER").equals(this.username) && processDetails.get("STAT").equals("R") && Float.parseFloat(processDetails.get("%CPU")) > 0;
+    }
+
     public LinkedList<Map<String, String>> getActive() {
         LinkedList<Map<String, String>> actives = new LinkedList<>();
         try {
@@ -61,9 +64,9 @@ public class ProcessMonitor extends Thread {
             line = input.readLine();
             LinkedList<String> parameters = getWords(line);
             while ((line = input.readLine()) != null) {
-                Map<String, String> processInfo = getProcessDetails(parameters, line);
-                if (processInfo.get("USER").equals(this.username) && processInfo.get("STAT").equals("R")) {
-                    actives.add(processInfo);
+                Map<String, String> processDetails = getProcessDetails(parameters, line);
+                if (this.threshold(processDetails)) {
+                    actives.add(processDetails);
                 }
             }
             input.close();
@@ -89,18 +92,6 @@ public class ProcessMonitor extends Thread {
         String[] currentProcesses = new String[processes.size()];
         String processName;
 
-        LinkedList<String> toDelete = new LinkedList<>();
-        for (Map.Entry<String, HashMap<String, String>> stringHashMapEntry : this.cash.entrySet()) {
-            String name = stringHashMapEntry.getKey();
-            if (!Arrays.asList(currentProcesses).contains(name)) {
-                packager.packIntoFile(this.cash.get(name));
-                toDelete.add(name);
-            }
-        }
-        for (String s : toDelete) {
-            this.cash.remove(s);
-        }
-
         float memInitial, memAdditional, cpuInitial, cpuAdditional;
         int num;
         for (int i = 0; i < processes.size(); i++) {
@@ -108,18 +99,7 @@ public class ProcessMonitor extends Thread {
             processName = commandArray[commandArray.length - 1];
             currentProcesses[i] = processName;
             if (this.cash.get(processName) == null) {
-                processData = new HashMap<>();
-                processData.put("%MEM", processes.get(i).get("%MEM"));
-                processData.put("%CPU", processes.get(i).get("%CPU"));
-                processData.put("STAT", processes.get(i).get("STAT"));
-                processData.put("RSS", processes.get(i).get("RSS"));
-                processData.put("TTY", processes.get(i).get("TTY"));
-                processData.put("PID", processes.get(i).get("PID"));
-                processData.put("START", processes.get(i).get("START"));
-                processData.put("TIME", processes.get(i).get("TIME"));
-                processData.put("COMMAND", processes.get(i).get("COMMAND"));
-                processData.put("USER", processes.get(i).get("USER"));
-                processData.put("VSZ", processes.get(i).get("VSZ"));
+                processData = (HashMap<String, String>) processes.get(i);
                 processData.put("NUM", "1");
                 this.cash.put(processName, processData);
             } else {
@@ -134,6 +114,18 @@ public class ProcessMonitor extends Thread {
                 this.cash.get(processName).put("%CPU", String.valueOf((cpuAdditional + cpuInitial) / num));
 
             }
+        }
+
+        LinkedList<String> toDelete = new LinkedList<>();
+        for (Map.Entry<String, HashMap<String, String>> stringHashMapEntry : this.cash.entrySet()) {
+            String name = stringHashMapEntry.getKey();
+            if (!Arrays.asList(currentProcesses).contains(name)) {
+                packager.packIntoFile(this.cash.get(name));
+                toDelete.add(name);
+            }
+        }
+        for (String s : toDelete) {
+            this.cash.remove(s);
         }
     }
 
