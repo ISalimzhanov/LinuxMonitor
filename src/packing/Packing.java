@@ -18,7 +18,7 @@ public class Packing {
 
     public Packing(String fileName){
         this.file = fileName;
-        if(new File("path/to/file.txt").isFile()){
+        if(!new File("path/to/file.txt").isFile()){
             try {
                 File myObj = new File(this.file);
                 myObj.createNewFile();
