@@ -1,7 +1,7 @@
 package monitor_ui;
 
 import com.mongodb.client.MongoDatabase;
-import database.LocalDatabase;
+import database.DatabaseManager;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -28,12 +28,6 @@ public class Controller {
             Stage stage = new Stage();
             stage.setTitle("Stats");
             stage.setScene(new Scene(root));
-            MongoDatabase db = LocalDatabase.getInstance();
-            HashMap<String, String> hm = new HashMap<String, String>();
-            hm.put("proc_name", "lol");
-            hm.put("cpu", "90");
-            hm.put("time", "102");
-            LocalDatabase.addData(hm);
             stage.show();
         }
         catch (IOException e) {

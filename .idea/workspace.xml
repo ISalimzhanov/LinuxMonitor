@@ -4,15 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="90341e3e-e3d3-4a6b-98a8-dfabb9cc856a" name="Default Changelist" comment="yeah project is fixed">
-      <change afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_mongodb_bson_4_2_0.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_mongodb_mongodb_driver_core_4_2_0.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_mongodb_mongodb_driver_sync_4_2_0.xml" afterDir="false" />
+    <list default="true" id="90341e3e-e3d3-4a6b-98a8-dfabb9cc856a" name="Default Changelist" comment="db draft">
+      <change afterPath="$PROJECT_DIR$/src/main/java/database/Process.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/database/ProcessDAO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/database/ProcessProperties.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LinuxMonitorUi.iml" beforeDir="false" afterPath="$PROJECT_DIR$/LinuxMonitorUi.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/database/LocalDatabase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/database/LocalDatabase.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/database/LocalDatabase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/database/DatabaseManager.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/monitor_ui/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/monitor_ui/Controller.java" afterDir="false" />
     </list>
     <list id="b5dee3e7-c1ba-4219-89b8-aaa7dc8c6371" name="Revert &quot;checking&quot;" comment="Revert &quot;checking&quot;&#10;&#10;This reverts commit e9d12fab" />
@@ -24,7 +21,9 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="Interface" />
         <option value="Class" />
+        <option value="Enum" />
       </list>
     </option>
   </component>
@@ -117,7 +116,14 @@
       <option name="project" value="LOCAL" />
       <updated>1613640228297</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="db draft">
+      <created>1613646416310</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1613646416310</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -135,7 +141,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="added maven" />
     <MESSAGE value="yeah project is fixed" />
-    <option name="LAST_COMMIT_MESSAGE" value="yeah project is fixed" />
+    <MESSAGE value="db draft" />
+    <option name="LAST_COMMIT_MESSAGE" value="db draft" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
