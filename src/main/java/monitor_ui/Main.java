@@ -16,11 +16,10 @@ public class Main extends Application {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("sample.fxml"));
         Controller controller = loader.getController();
-
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
-    }
 
+    }
 
     public static void main(String[] args) {
         launch(args);
