@@ -21,7 +21,7 @@ public class Controller {
     public void openStats(){
         Parent root;
         try {
-            root = FXMLLoader.load(getClass().getResource("stats.fxml"));
+            root = FXMLLoader.load(getClass().getResource("/fxml/stats.fxml"));
             Stage stage = new Stage();
             stage.setTitle("Day information");
             stage.setScene(new Scene(root));

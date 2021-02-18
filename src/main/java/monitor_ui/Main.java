@@ -10,11 +10,11 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/fxml/sample.fxml"));
         primaryStage.setTitle("Linux Monitor");
 
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("sample.fxml"));
+        loader.setLocation(getClass().getResource("/fxml/sample.fxml"));
         Controller controller = loader.getController();
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
