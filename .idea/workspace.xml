@@ -4,13 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="90341e3e-e3d3-4a6b-98a8-dfabb9cc856a" name="Default Changelist" comment="db draft">
-      <change afterPath="$PROJECT_DIR$/src/main/java/database/Process.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/database/ProcessDAO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/database/ProcessProperties.java" afterDir="false" />
+    <list default="true" id="90341e3e-e3d3-4a6b-98a8-dfabb9cc856a" name="Default Changelist" comment="Database is finished">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/database/LocalDatabase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/database/DatabaseManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/database/Process.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/database/Process.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/database/ProcessDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/database/ProcessDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/database/ProcessProperties.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/database/ProcessProperties.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/monitor_ui/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/monitor_ui/Controller.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/fxml/stats.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/fxml/stats.fxml" afterDir="false" />
     </list>
     <list id="b5dee3e7-c1ba-4219-89b8-aaa7dc8c6371" name="Revert &quot;checking&quot;" comment="Revert &quot;checking&quot;&#10;&#10;This reverts commit e9d12fab" />
     <option name="SHOW_DIALOG" value="false" />
@@ -54,7 +54,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
-    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.last.edited" value="Global Libraries" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="settings.editor.selected.configurable" value="configurable.group.editor" />
@@ -123,7 +123,14 @@
       <option name="project" value="LOCAL" />
       <updated>1613646416310</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Database is finished">
+      <created>1613675995600</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1613675995601</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -142,7 +149,8 @@
     <MESSAGE value="added maven" />
     <MESSAGE value="yeah project is fixed" />
     <MESSAGE value="db draft" />
-    <option name="LAST_COMMIT_MESSAGE" value="db draft" />
+    <MESSAGE value="Database is finished" />
+    <option name="LAST_COMMIT_MESSAGE" value="Database is finished" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

@@ -1,14 +1,10 @@
 package database;
 
-import com.mongodb.BasicDBObjectBuilder;
-import com.mongodb.DBObject;
-import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
 import com.mongodb.client.MongoDatabase;
 import org.bson.Document;
 
-import javax.print.Doc;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
 
@@ -21,7 +17,7 @@ public class ProcessDAO {
     // Save data about one Process in db
     public static void saveProcess(Process process, String date) throws UnknownHostException {
         Document doc = new Document()
-                .append(ProcessProperties.PROCESS_NAME.name(), process.getProcessName())
+                .append(ProcessProperties.NAME.name(), process.getName())
                 .append(ProcessProperties.CPU.name(), process.getCpuUsage())
                 .append(ProcessProperties.TIME.name(), process.getWorkTime())
                 .append(ProcessProperties.USER.name(), process.getUser())
@@ -49,7 +45,7 @@ public class ProcessDAO {
                 Document doc = cursor.next();
                 processes.add(
                         new Process(
-                            doc.getString(ProcessProperties.PROCESS_NAME.name()),
+                            doc.getString(ProcessProperties.NAME.name()),
                             doc.getString(ProcessProperties.CPU.name()),
                             doc.getString(ProcessProperties.MEMORY_UTIL.name()),
                             doc.getString(ProcessProperties.TIME.name()),

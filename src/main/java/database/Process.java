@@ -3,7 +3,7 @@ package database;
 // data class that stores process properties
 public class Process {
 
-    private String processName;
+    private String name;
     private String cpuUsage;
     private String memoryUtil;
     private String workTime;
@@ -17,13 +17,13 @@ public class Process {
     private String command;
 
 
-    public Process(String processName, String cpuUsage,
+    public Process(String name, String cpuUsage,
                    String memoryUtil, String workTime,
                    String user, String procStat,
                    String procRSS, String procTTY,
                    String pid, String startTime,
                    String procVSZ, String command) {
-        this.processName = processName;
+        this.name = name;
         this.cpuUsage = cpuUsage;
         this.memoryUtil = memoryUtil;
         this.workTime = workTime;
@@ -34,10 +34,11 @@ public class Process {
         this.pid = pid;
         this.startTime = startTime;
         this.procVSZ = procVSZ;
+        this.command = command;
     }
 
-    public String getProcessName() {
-        return processName;
+    public String getName() {
+        return name;
     }
 
     public String getCpuUsage() {
@@ -116,8 +117,8 @@ public class Process {
         this.procVSZ = procVSZ;
     }
 
-    public void setProcessName(String processName) {
-        this.processName = processName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public void setCpuUsage(String cpuUsage) {

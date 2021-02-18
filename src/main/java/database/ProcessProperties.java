@@ -2,7 +2,7 @@ package database;
 
 // Enum for process properties
 public enum ProcessProperties {
-    PROCESS_NAME,
+    NAME,
     CPU,
     TIME,
     USER,
