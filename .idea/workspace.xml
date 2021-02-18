@@ -1,37 +1,79 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="ebc2d709-462a-4e93-a5e1-3aa81540cad4" name="Default Changelist" comment="Draft ui">
+    <list default="true" id="90341e3e-e3d3-4a6b-98a8-dfabb9cc856a" name="Default Changelist" comment="added maven">
+      <change beforePath="$PROJECT_DIR$/src/main/java/monitor_ui/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/monitor_ui/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/monitor_ui/sample.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/fxml/sample.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/monitor_ui/stats.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/fxml/stats.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/monitor_ui/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/monitor_ui/Controller.java" afterDir="false" />
+    </list>
+    <list id="b5dee3e7-c1ba-4219-89b8-aaa7dc8c6371" name="Revert &quot;checking&quot;" comment="Revert &quot;checking&quot;&#10;&#10;This reverts commit e9d12fab">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/monitor_ui/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/monitor_ui/Controller.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="Git.Settings">
-    <option name="RECENT_BRANCH_BY_REPOSITORY">
-      <map>
-        <entry key="$PROJECT_DIR$" value="main" />
-      </map>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
     </option>
+  </component>
+  <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RESET_MODE" value="HARD" />
+    <option name="UPDATE_TYPE" value="REBASE" />
+  </component>
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
+  </component>
+  <component name="LineStatusTrackerManager">
+    <file path="$PROJECT_DIR$/src/main/java/monitor_ui/Controller.java">
+      <ranges>
+        <range start1="23" end1="24" start2="23" end2="24" changelist="90341e3e-e3d3-4a6b-98a8-dfabb9cc856a" />
+        <range start1="25" end1="26" start2="25" end2="26" changelist="b5dee3e7-c1ba-4219-89b8-aaa7dc8c6371" />
+      </ranges>
+    </file>
   </component>
   <component name="ProjectId" id="1oF3owj44C30SlM2iHOXqwRjHt5" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="Downloaded.Files.Path.Enabled" value="true" />
+    <property name="Repository.Attach.Annotations" value="false" />
+    <property name="Repository.Attach.JavaDocs" value="false" />
+    <property name="Repository.Attach.Sources" value="false" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="project.structure.last.edited" value="Project" />
+    <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
-    <property name="project.structure.side.proportion" value="0.0" />
+    <property name="project.structure.side.proportion" value="0.2" />
     <property name="settings.editor.selected.configurable" value="configurable.group.editor" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\calig\IdeaProjects\LinuxMonitorUi\src\main\resources\fxml" />
+      <recent name="C:\Users\calig\IdeaProjects\LinuxMonitorUi\src\main\resources" />
+    </key>
   </component>
   <component name="RunManager">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="ALTERNATIVE_JRE_PATH" value="corretto-1.8" />
       <option name="MAIN_CLASS_NAME" value="monitor_ui.Main" />
       <module name="LinuxMonitorUi" />
       <extension name="coverage">
@@ -53,18 +95,18 @@
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="ebc2d709-462a-4e93-a5e1-3aa81540cad4" name="Default Changelist" comment="" />
+      <changelist id="90341e3e-e3d3-4a6b-98a8-dfabb9cc856a" name="Default Changelist" comment="" />
       <created>1612868724072</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1612868724072</updated>
     </task>
-    <task id="LOCAL-00001" summary="Draft ui">
-      <created>1612869576776</created>
+    <task id="LOCAL-00001" summary="added maven">
+      <created>1613639023984</created>
       <option name="number" value="00001" />
       <option name="presentableId" value="LOCAL-00001" />
       <option name="project" value="LOCAL" />
-      <updated>1612869576776</updated>
+      <updated>1613639023985</updated>
     </task>
     <option name="localTasksCounter" value="2" />
     <servers />
@@ -82,8 +124,8 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Draft ui" />
-    <option name="LAST_COMMIT_MESSAGE" value="Draft ui" />
+    <MESSAGE value="added maven" />
+    <option name="LAST_COMMIT_MESSAGE" value="added maven" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
