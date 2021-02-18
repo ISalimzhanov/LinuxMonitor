@@ -4,16 +4,18 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="90341e3e-e3d3-4a6b-98a8-dfabb9cc856a" name="Default Changelist" comment="added maven">
-      <change beforePath="$PROJECT_DIR$/src/main/java/monitor_ui/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/monitor_ui/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/monitor_ui/sample.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/fxml/sample.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/monitor_ui/stats.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/fxml/stats.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/monitor_ui/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/monitor_ui/Controller.java" afterDir="false" />
-    </list>
-    <list id="b5dee3e7-c1ba-4219-89b8-aaa7dc8c6371" name="Revert &quot;checking&quot;" comment="Revert &quot;checking&quot;&#10;&#10;This reverts commit e9d12fab">
+    <list default="true" id="90341e3e-e3d3-4a6b-98a8-dfabb9cc856a" name="Default Changelist" comment="yeah project is fixed">
+      <change afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_mongodb_bson_4_2_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_mongodb_mongodb_driver_core_4_2_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_mongodb_mongodb_driver_sync_4_2_0.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/monitor_ui/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/monitor_ui/Controller.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/LinuxMonitorUi.iml" beforeDir="false" afterPath="$PROJECT_DIR$/LinuxMonitorUi.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/database/LocalDatabase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/database/LocalDatabase.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/monitor_ui/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/monitor_ui/Controller.java" afterDir="false" />
     </list>
+    <list id="b5dee3e7-c1ba-4219-89b8-aaa7dc8c6371" name="Revert &quot;checking&quot;" comment="Revert &quot;checking&quot;&#10;&#10;This reverts commit e9d12fab" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -39,14 +41,6 @@
       <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
     </file-type-list>
   </component>
-  <component name="LineStatusTrackerManager">
-    <file path="$PROJECT_DIR$/src/main/java/monitor_ui/Controller.java">
-      <ranges>
-        <range start1="23" end1="24" start2="23" end2="24" changelist="90341e3e-e3d3-4a6b-98a8-dfabb9cc856a" />
-        <range start1="25" end1="26" start2="25" end2="26" changelist="b5dee3e7-c1ba-4219-89b8-aaa7dc8c6371" />
-      </ranges>
-    </file>
-  </component>
   <component name="ProjectId" id="1oF3owj44C30SlM2iHOXqwRjHt5" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
@@ -60,6 +54,7 @@
     <property name="Repository.Attach.Sources" value="false" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
@@ -108,7 +103,21 @@
       <option name="project" value="LOCAL" />
       <updated>1613639023985</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="yeah project is fixed">
+      <created>1613639971003</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1613639971003</updated>
+    </task>
+    <task id="LOCAL-00003" summary="yeah project is fixed">
+      <created>1613640228297</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1613640228297</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -125,7 +134,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="added maven" />
-    <option name="LAST_COMMIT_MESSAGE" value="added maven" />
+    <MESSAGE value="yeah project is fixed" />
+    <option name="LAST_COMMIT_MESSAGE" value="yeah project is fixed" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
