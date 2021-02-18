@@ -76,7 +76,7 @@ public class ProcessMonitor extends Thread {
         return actives;
     }
 
-    public void packageCash() {
+    public void storeCashData() {
         Packing packager = new Packing("processes.json");
         for (Map.Entry<String, HashMap<String, String>> stringHashMapEntry : this.cash.entrySet()) {
             String name = stringHashMapEntry.getKey();
@@ -134,7 +134,7 @@ public class ProcessMonitor extends Thread {
             LinkedList<Map<String, String>> processes = this.getActive();
             this.transferToCash(processes);
         }
-        this.packageCash();
+        this.storeCashData();
     }
 
     public boolean isKeepRunning() {

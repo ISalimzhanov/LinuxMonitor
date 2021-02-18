@@ -1,24 +1,26 @@
 import monitors.ProcessMonitor;
-import monitors.test.ProcessMonitorTest;
+import monitors.WindowsMonitor;
 
 public class Main {
     public static void main(String[] args) {
-        ProcessMonitorTest test = new ProcessMonitorTest();
-        test.run();
-        /*ProcessMonitor p = ProcessMonitor.getInstance("iskander");
-        p.start();
+        ProcessMonitor processMonitor = ProcessMonitor.getInstance("iskander");
+        WindowsMonitor windowsMonitor = WindowsMonitor.getInstance();
+        //processMonitor.start();
+        windowsMonitor.start();
         Runtime runtime = Runtime.getRuntime();
         runtime.addShutdownHook(
                 new Thread() {
                     public void run() {
-                        p.setKeepRunning(false);
+                        //processMonitor.setKeepRunning(false);
+                        windowsMonitor.setKeepRunning(false);
                         try {
-                            p.join();
+                            //processMonitor.join();
+                            windowsMonitor.join();
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
                     }
                 }
-        );*/
+        );
     }
 }

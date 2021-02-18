@@ -64,7 +64,7 @@ public class ProcessMonitorTest {
         ProcessMonitor pm = ProcessMonitor.getInstance("iskander");
         pm.start();
         Random random = new Random();
-        int testDuration = 2;
+        int testDuration = 10;
         while (testDuration != 0) {
             int interval = Math.abs(random.nextInt() % 10) + 5;
             try {
