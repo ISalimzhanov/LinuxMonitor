@@ -10,9 +10,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.VBox;
@@ -20,10 +18,24 @@ import javafx.stage.Stage;
 
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 
 public class Controller {
+
+
+    @FXML private DatePicker datePicker;
+    @FXML private Label timer;
+
+
+    @FXML
+    public void initialize() {
+        datePicker.setValue(NOW_LOCAL_DATE());
+    }
 
 
     @FXML
@@ -36,12 +48,11 @@ public class Controller {
     public void openStats(){
         Parent root;
         try {
-            root = FXMLLoader.load(getClass().getResource("/fxml/stats.fxml"));
 
             ObservableList<Process> processes = FXCollections.observableArrayList();
-
-            ArrayList<Process> list = ProcessDAO.getAllProcesses("19022021");
+            ArrayList<Process> list = ProcessDAO.getAllProcesses(datePicker.getValue().toString());
             processes.addAll(list);
+
 
             TableView<Process> table = new TableView<Process>(processes);
 
@@ -104,6 +115,12 @@ public class Controller {
         catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public static LocalDate NOW_LOCAL_DATE (){
+        String date = new SimpleDateFormat("dd-MM-yyyy").format(Calendar.getInstance().getTime());
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        return LocalDate.parse(date , formatter);
     }
 
 }
