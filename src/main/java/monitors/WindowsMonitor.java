@@ -29,7 +29,7 @@ public class WindowsMonitor extends Thread {
         windowTitles.add(activeWindowTitle);
         if (!this.cash.containsKey(activeWindowTitle)) {
             HashMap<String, String> windowDetails = new HashMap<>();
-            windowDetails.put("status", "ACTIVE");
+            windowDetails.put("status", "FOCUSED");
             windowDetails.put("start", String.valueOf(LocalTime.now()));
             this.cash.put(activeWindowTitle, windowDetails);
         }
@@ -40,7 +40,7 @@ public class WindowsMonitor extends Thread {
             windowTitles.add(title);
             if (!this.cash.containsKey(title)) {
                 HashMap<String, String> windowData = new HashMap<>();
-                windowData.put("status", "IDLE");
+                windowData.put("status", "NOT FOCUSED");
                 windowData.put("start", String.valueOf(LocalTime.now()));
                 this.cash.put(title, windowData);
             } else if (this.cash.get(title).get("status").equals("ACTIVE")) {

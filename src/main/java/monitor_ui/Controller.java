@@ -1,19 +1,14 @@
 package monitor_ui;
 
-import com.mongodb.client.MongoDatabase;
-import database.DatabaseManager;
-import database.Process;
+import database.ProcessRecord;
 import database.ProcessDAO;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 
@@ -23,7 +18,6 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.HashMap;
 
 public class Controller {
 
@@ -49,59 +43,59 @@ public class Controller {
         Parent root;
         try {
 
-            ObservableList<Process> processes = FXCollections.observableArrayList();
-            ArrayList<Process> list = ProcessDAO.getAllProcesses(datePicker.getValue().toString());
-            processes.addAll(list);
+            ObservableList<ProcessRecord> processRecords = FXCollections.observableArrayList();
+            ArrayList<ProcessRecord> list = ProcessDAO.getAllProcesses(datePicker.getValue().toString());
+            processRecords.addAll(list);
 
 
-            TableView<Process> table = new TableView<Process>(processes);
+            TableView<ProcessRecord> table = new TableView<ProcessRecord>(processRecords);
 
-            TableColumn<Process, String> user = new TableColumn<Process, String>("USER");
-            user.setCellValueFactory(new PropertyValueFactory<Process, String>("user"));
+            TableColumn<ProcessRecord, String> user = new TableColumn<ProcessRecord, String>("USER");
+            user.setCellValueFactory(new PropertyValueFactory<ProcessRecord, String>("user"));
             table.getColumns().add(user);
 
-            TableColumn<Process, String> nameColumn = new TableColumn<Process, String>("Name");
-            nameColumn.setCellValueFactory(new PropertyValueFactory<Process, String>("name"));
+            TableColumn<ProcessRecord, String> nameColumn = new TableColumn<ProcessRecord, String>("Name");
+            nameColumn.setCellValueFactory(new PropertyValueFactory<ProcessRecord, String>("name"));
             table.getColumns().add(nameColumn);
 
-            TableColumn<Process, String> cpu = new TableColumn<Process, String>("CPU");
-            cpu.setCellValueFactory(new PropertyValueFactory<Process, String>("cpuUsage"));
+            TableColumn<ProcessRecord, String> cpu = new TableColumn<ProcessRecord, String>("CPU");
+            cpu.setCellValueFactory(new PropertyValueFactory<ProcessRecord, String>("cpuUsage"));
             table.getColumns().add(cpu);
 
-            TableColumn<Process, String> memoryUtil = new TableColumn<Process, String>("RAM");
-            memoryUtil.setCellValueFactory(new PropertyValueFactory<Process, String>("memoryUtil"));
+            TableColumn<ProcessRecord, String> memoryUtil = new TableColumn<ProcessRecord, String>("RAM");
+            memoryUtil.setCellValueFactory(new PropertyValueFactory<ProcessRecord, String>("memoryUtil"));
             table.getColumns().add(memoryUtil);
 
-            TableColumn<Process, String> workTime = new TableColumn<Process, String>("Time");
-            workTime.setCellValueFactory(new PropertyValueFactory<Process, String>("workTime"));
+            TableColumn<ProcessRecord, String> workTime = new TableColumn<ProcessRecord, String>("Time");
+            workTime.setCellValueFactory(new PropertyValueFactory<ProcessRecord, String>("workTime"));
             table.getColumns().add(workTime);
 
-            TableColumn<Process, String> procStat = new TableColumn<Process, String>("Stat");
-            procStat.setCellValueFactory(new PropertyValueFactory<Process, String>("procStat"));
+            TableColumn<ProcessRecord, String> procStat = new TableColumn<ProcessRecord, String>("Stat");
+            procStat.setCellValueFactory(new PropertyValueFactory<ProcessRecord, String>("procStat"));
             table.getColumns().add(procStat);
 
-            TableColumn<Process, String> procRSS = new TableColumn<Process, String>("RSS");
-            procRSS.setCellValueFactory(new PropertyValueFactory<Process, String>("procRSS"));
+            TableColumn<ProcessRecord, String> procRSS = new TableColumn<ProcessRecord, String>("RSS");
+            procRSS.setCellValueFactory(new PropertyValueFactory<ProcessRecord, String>("procRSS"));
             table.getColumns().add(procRSS);
 
-            TableColumn<Process, String> procTTY = new TableColumn<Process, String>("TTY");
-            procTTY.setCellValueFactory(new PropertyValueFactory<Process, String>("procTTY"));
+            TableColumn<ProcessRecord, String> procTTY = new TableColumn<ProcessRecord, String>("TTY");
+            procTTY.setCellValueFactory(new PropertyValueFactory<ProcessRecord, String>("procTTY"));
             table.getColumns().add(procTTY);
 
-            TableColumn<Process, String> pid = new TableColumn<Process, String>("pid");
-            pid.setCellValueFactory(new PropertyValueFactory<Process, String>("pid"));
+            TableColumn<ProcessRecord, String> pid = new TableColumn<ProcessRecord, String>("pid");
+            pid.setCellValueFactory(new PropertyValueFactory<ProcessRecord, String>("pid"));
             table.getColumns().add(pid);
 
-            TableColumn<Process, String> startTime = new TableColumn<Process, String>("Start time");
-            startTime.setCellValueFactory(new PropertyValueFactory<Process, String>("startTime"));
+            TableColumn<ProcessRecord, String> startTime = new TableColumn<ProcessRecord, String>("Start time");
+            startTime.setCellValueFactory(new PropertyValueFactory<ProcessRecord, String>("startTime"));
             table.getColumns().add(startTime);
 
-            TableColumn<Process, String> procVSZ = new TableColumn<Process, String>("VSZ");
-            procVSZ.setCellValueFactory(new PropertyValueFactory<Process, String>("procVSZ"));
+            TableColumn<ProcessRecord, String> procVSZ = new TableColumn<ProcessRecord, String>("VSZ");
+            procVSZ.setCellValueFactory(new PropertyValueFactory<ProcessRecord, String>("procVSZ"));
             table.getColumns().add(procVSZ);
 
-            TableColumn<Process, String> command = new TableColumn<Process, String>("command");
-            command.setCellValueFactory(new PropertyValueFactory<Process, String>("command"));
+            TableColumn<ProcessRecord, String> command = new TableColumn<ProcessRecord, String>("command");
+            command.setCellValueFactory(new PropertyValueFactory<ProcessRecord, String>("command"));
             table.getColumns().add(command);
 
 

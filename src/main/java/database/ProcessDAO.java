@@ -15,36 +15,36 @@ public class ProcessDAO {
     private static final String COLLECTION_NAME = "processes";
 
     // Save data about one Process in db
-    public static void saveProcess(Process process, String date) throws UnknownHostException {
+    public static void saveProcess(ProcessRecord processRecord, String date) throws UnknownHostException {
         Document doc = new Document()
-                .append(ProcessProperties.NAME.name(), process.getName())
-                .append(ProcessProperties.CPU.name(), process.getCpuUsage())
-                .append(ProcessProperties.TIME.name(), process.getWorkTime())
-                .append(ProcessProperties.USER.name(), process.getUser())
-                .append(ProcessProperties.MEMORY_UTIL.name(), process.getMemoryUtil())
-                .append(ProcessProperties.STAT.name(), process.getProcStat())
-                .append(ProcessProperties.RSS.name(), process.getProcRSS())
-                .append(ProcessProperties.TTY.name(), process.getProcTTY())
-                .append(ProcessProperties.PID.name(), process.getPid())
-                .append(ProcessProperties.START.name(), process.getStartTime())
-                .append(ProcessProperties.VSZ.name(), process.getProcVSZ())
-                .append(ProcessProperties.COMMAND.name(), process.getCommand());
+                .append(ProcessProperties.NAME.name(), processRecord.getName())
+                .append(ProcessProperties.CPU.name(), processRecord.getCpuUsage())
+                .append(ProcessProperties.TIME.name(), processRecord.getWorkTime())
+                .append(ProcessProperties.USER.name(), processRecord.getUser())
+                .append(ProcessProperties.MEMORY_UTIL.name(), processRecord.getMemoryUtil())
+                .append(ProcessProperties.STAT.name(), processRecord.getProcStat())
+                .append(ProcessProperties.RSS.name(), processRecord.getProcRSS())
+                .append(ProcessProperties.TTY.name(), processRecord.getProcTTY())
+                .append(ProcessProperties.PID.name(), processRecord.getPid())
+                .append(ProcessProperties.START.name(), processRecord.getStartTime())
+                .append(ProcessProperties.VSZ.name(), processRecord.getProcVSZ())
+                .append(ProcessProperties.COMMAND.name(), processRecord.getCommand());
         MongoDatabase db = DatabaseManager.getInstance(DBNAME);
         MongoCollection<Document> collection = db.getCollection(COLLECTION_NAME.concat(date));
         collection.insertOne(doc);
     }
 
     // Get all processes as ArrayList of Processes
-    public static ArrayList<Process> getAllProcesses(String date) throws UnknownHostException {
+    public static ArrayList<ProcessRecord> getAllProcesses(String date) throws UnknownHostException {
         MongoDatabase db = DatabaseManager.getInstance(DBNAME);
         MongoCollection<Document> collection = db.getCollection(COLLECTION_NAME.concat(date));
         MongoCursor<Document> cursor = collection.find().iterator();
-        ArrayList<Process> processes = new ArrayList<>();
+        ArrayList<ProcessRecord> processRecords = new ArrayList<>();
         try {
             while (cursor.hasNext()){
                 Document doc = cursor.next();
-                processes.add(
-                        new Process(
+                processRecords.add(
+                        new ProcessRecord(
                             doc.getString(ProcessProperties.NAME.name()),
                             doc.getString(ProcessProperties.CPU.name()),
                             doc.getString(ProcessProperties.MEMORY_UTIL.name()),
@@ -63,6 +63,6 @@ public class ProcessDAO {
         } finally {
             cursor.close();
         }
-        return processes;
+        return processRecords;
     }
 }

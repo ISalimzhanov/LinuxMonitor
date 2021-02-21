@@ -2,8 +2,11 @@ package monitors;
 
 import database.ProcessDAO;
 import packing.Packing;
-//import database.Process;
+import database.ProcessRecord;
 
+import java.net.UnknownHostException;
+import java.time.format.DateTimeFormatter;
+import java.time.LocalDateTime;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.*;
@@ -88,6 +91,7 @@ public class ProcessMonitor extends Thread {
     }
 
     private void transferToCash(LinkedList<Map<String, String>> processes) {
+        System.out.println("transfer");
         Packing packager = new Packing("processes.json");
         HashMap<String, String> processData;
         String[] commandArray;
@@ -122,14 +126,19 @@ public class ProcessMonitor extends Thread {
         for (Map.Entry<String, HashMap<String, String>> stringHashMapEntry : this.cash.entrySet()) {
             String name = stringHashMapEntry.getKey();
             if (!Arrays.asList(currentProcesses).contains(name)) {
-                //Process proc = new Process(name, this.cash.get(name).get("%CPU"), this.cash.get(name).get("%MEM"),
-                //        this.cash.get(name).get("TIME"), this.cash.get(name).get("USER"),
-                //        this.cash.get(name).get("STAT"), this.cash.get(name).get("RSS"),
-                //        this.cash.get(name).get("TTY"), this.cash.get(name).get("PID"),
-                //        this.cash.get(name).get("START"), this.cash.get(name).get("VSZ"),
-                //        this.cash.get(name).get("COMMAND"));
-                //ProcessDAO.saveProcess(proc, );
-                //NEED TO RESOLVE NAMING CLASH BETWEEN JAVA PROCESS AND DATABASE.PROCESS
+                DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                LocalDateTime now = LocalDateTime.now();
+                String dateNow = dtf.format(now);
+                ProcessRecord proc = new ProcessRecord(name, this.cash.get(name).get("%CPU"), this.cash.get(name).get("%MEM"),
+                        this.cash.get(name).get("TIME"), this.cash.get(name).get("USER"),
+                        this.cash.get(name).get("STAT"), this.cash.get(name).get("RSS"),
+                        this.cash.get(name).get("TTY"), this.cash.get(name).get("PID"),
+                        this.cash.get(name).get("START"), this.cash.get(name).get("VSZ"),
+                        this.cash.get(name).get("COMMAND"));
+                try{
+                    ProcessDAO.saveProcess(proc, dateNow);
+                    System.out.println("save to database");
+                }catch(UnknownHostException e){}
                 toDelete.add(name);
             }
         }
@@ -140,6 +149,7 @@ public class ProcessMonitor extends Thread {
 
     public void run() {
         while (this.keepRunning) {
+
             LinkedList<Map<String, String>> processes = this.getActive();
             this.transferToCash(processes);
         }
