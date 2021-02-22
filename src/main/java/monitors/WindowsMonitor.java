@@ -1,8 +1,14 @@
 package monitors;
 
 import X.X11Api;
+import database.ProcessDAO;
+import database.ProcessTabDao;
+import database.ProcessTab;
 
+import java.net.UnknownHostException;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
@@ -24,9 +30,13 @@ public class WindowsMonitor extends Thread {
     }
 
     public void transferToCash(X11Api.Window[] allWindows, X11Api.Window activeWindow) throws X11Api.X11Exception {
+        System.out.println("start transfer");
         String activeWindowTitle = activeWindow.getTitle();
         LinkedList<String> windowTitles = new LinkedList<>();
         windowTitles.add(activeWindowTitle);
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDateTime now = LocalDateTime.now();
+        String dateNow = dtf.format(now);
         if (!this.cash.containsKey(activeWindowTitle)) {
             HashMap<String, String> windowDetails = new HashMap<>();
             windowDetails.put("status", "FOCUSED");
@@ -43,9 +53,12 @@ public class WindowsMonitor extends Thread {
                 windowData.put("status", "NOT FOCUSED");
                 windowData.put("start", String.valueOf(LocalTime.now()));
                 this.cash.put(title, windowData);
-            } else if (this.cash.get(title).get("status").equals("ACTIVE")) {
+            } else if (this.cash.get(title).get("status").equals("FOCUSED")) {
                 System.out.println(title);
-                // toDo package
+                ProcessTab pr = new ProcessTab(title, this.cash.get(title).get("status"), this.cash.get(title).get("start"));
+                try{
+                    ProcessTabDao.saveWindow(pr, dateNow);
+                }catch(UnknownHostException e){}
                 this.cash.remove(title);
             }
         }
@@ -55,7 +68,11 @@ public class WindowsMonitor extends Thread {
             String title = windowDetails.getKey();
             if (!windowTitles.contains(title)) {
                 System.out.println(title);
-                // toDO package
+                ProcessTab pr = new ProcessTab(title, windowDetails.getValue().get("status"), windowDetails.getValue().get("start"));
+                try{
+                    ProcessTabDao.saveWindow(pr, dateNow);
+                    System.out.println("db saving");
+                }catch(UnknownHostException e){}
                 toDelete.add(title);
             }
         }
@@ -65,9 +82,14 @@ public class WindowsMonitor extends Thread {
     }
 
     public void storeCashData() {
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDateTime now = LocalDateTime.now();
+        String dateNow = dtf.format(now);
         for (Map.Entry<String, HashMap<String, String>> stringHashMapEntry : this.cash.entrySet()) {
-            // toDo package
-            continue;
+            ProcessTab pr = new ProcessTab(stringHashMapEntry.getKey(), stringHashMapEntry.getValue().get("status"), stringHashMapEntry.getValue().get("start"));
+            try{
+                ProcessTabDao.saveWindow(pr, dateNow);
+            }catch(UnknownHostException e){};
         }
         this.cash.clear();
     }

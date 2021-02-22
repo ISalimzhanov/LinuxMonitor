@@ -18,6 +18,6 @@
     <Button fx:id="statsButton" onAction="#openStats" text="Open day stats">
 
     </Button>
-    <Button fx:id="windowButton" onAction="#openWindows" text="Open day windows"></Button>
+    <Button fx:id="windowButton" onAction="#openWindowStats" text="Open day windows"></Button>
 
 </VBox>

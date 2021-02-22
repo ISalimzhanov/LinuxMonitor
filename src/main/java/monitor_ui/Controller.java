@@ -2,6 +2,8 @@ package monitor_ui;
 
 import database.ProcessRecord;
 import database.ProcessDAO;
+import database.ProcessTab;
+import database.ProcessTabDao;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -39,6 +41,43 @@ public class Controller {
     }
 
     @FXML
+    public void openWindowStats(){
+        Parent root;
+        try {
+
+            ObservableList<ProcessTab> processTabs = FXCollections.observableArrayList();
+            ArrayList<ProcessTab> list = ProcessTabDao.getAllWindows(datePicker.getValue().toString());
+            processTabs.addAll(list);
+
+
+            TableView<ProcessTab> table = new TableView<ProcessTab>(processTabs);
+
+            TableColumn<ProcessTab, String> nameColumn = new TableColumn<ProcessTab, String>("Name");
+            nameColumn.setCellValueFactory(new PropertyValueFactory<ProcessTab, String>("name"));
+            table.getColumns().add(nameColumn);
+
+            TableColumn<ProcessTab, String> stat = new TableColumn<ProcessTab, String>("Status");
+            stat.setCellValueFactory(new PropertyValueFactory<ProcessTab, String>("status"));
+            table.getColumns().add(stat);
+
+            TableColumn<ProcessTab, String> start = new TableColumn<ProcessTab, String>("Start");
+            start.setCellValueFactory(new PropertyValueFactory<ProcessTab, String>("start"));
+            table.getColumns().add(start);
+
+
+            Stage stage = new Stage();
+            stage.setTitle("Windows Stats");
+
+            Scene scene = new Scene(table, 1000, 600);
+            stage.setScene(scene);
+            stage.show();
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
     public void openStats(){
         Parent root;
         try {
@@ -50,9 +89,6 @@ public class Controller {
 
             TableView<ProcessRecord> table = new TableView<ProcessRecord>(processRecords);
 
-            TableColumn<ProcessRecord, String> user = new TableColumn<ProcessRecord, String>("USER");
-            user.setCellValueFactory(new PropertyValueFactory<ProcessRecord, String>("user"));
-            table.getColumns().add(user);
 
             TableColumn<ProcessRecord, String> nameColumn = new TableColumn<ProcessRecord, String>("Name");
             nameColumn.setCellValueFactory(new PropertyValueFactory<ProcessRecord, String>("name"));

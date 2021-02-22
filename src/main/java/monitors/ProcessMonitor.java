@@ -1,6 +1,8 @@
 package monitors;
 
 import database.ProcessDAO;
+import database.ProcessTab;
+import database.ProcessTabDao;
 import packing.Packing;
 import database.ProcessRecord;
 
@@ -82,16 +84,24 @@ public class ProcessMonitor extends Thread {
     }
 
     public void storeCashData() {
-        Packing packager = new Packing("processes.json");
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDateTime now = LocalDateTime.now();
+        String dateNow = dtf.format(now);
         for (Map.Entry<String, HashMap<String, String>> stringHashMapEntry : this.cash.entrySet()) {
-            String name = stringHashMapEntry.getKey();
-            packager.packIntoFile(this.cash.get(name));
+            ProcessRecord pr = new ProcessRecord(stringHashMapEntry.getKey(), stringHashMapEntry.getValue().get("%CPU"), stringHashMapEntry.getValue().get("%MEM"),
+                    stringHashMapEntry.getValue().get("TIME"), stringHashMapEntry.getValue().get("USER"),
+                    stringHashMapEntry.getValue().get("STAT"), stringHashMapEntry.getValue().get("RSS"),
+                    stringHashMapEntry.getValue().get("TTY"), stringHashMapEntry.getValue().get("PID"),
+                    stringHashMapEntry.getValue().get("START"), stringHashMapEntry.getValue().get("VSZ"),
+                    stringHashMapEntry.getValue().get("COMMAND"));
+            try{
+                ProcessDAO.saveProcess(pr, dateNow);
+            }catch(UnknownHostException e){};
         }
         this.cash.clear();
     }
 
     private void transferToCash(LinkedList<Map<String, String>> processes) {
-        System.out.println("transfer");
         Packing packager = new Packing("processes.json");
         HashMap<String, String> processData;
         String[] commandArray;
@@ -137,7 +147,6 @@ public class ProcessMonitor extends Thread {
                         this.cash.get(name).get("COMMAND"));
                 try{
                     ProcessDAO.saveProcess(proc, dateNow);
-                    System.out.println("save to database");
                 }catch(UnknownHostException e){}
                 toDelete.add(name);
             }
