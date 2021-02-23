@@ -64,6 +64,10 @@ public class Controller {
             start.setCellValueFactory(new PropertyValueFactory<ProcessTab, String>("start"));
             table.getColumns().add(start);
 
+            TableColumn<ProcessTab, String> PID = new TableColumn<ProcessTab, String>("PID");
+            PID.setCellValueFactory(new PropertyValueFactory<ProcessTab, String>("PID"));
+            table.getColumns().add(PID);
+
 
             Stage stage = new Stage();
             stage.setTitle("Windows Stats");

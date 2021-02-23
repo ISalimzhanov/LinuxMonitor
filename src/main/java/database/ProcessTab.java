@@ -4,12 +4,14 @@ public class ProcessTab {
     private String name;
     private String status;
     private String start;
+    private String PID;
 
 
-    public ProcessTab(String name, String status, String start) {
+    public ProcessTab(String name, String status, String start, String PID) {
         this.name = name;
         this.status = status;
         this.start = start;
+        this.PID = PID;
     }
 
     public String getName() {
@@ -31,5 +33,12 @@ public class ProcessTab {
     }
     public void setStart(String start) {
         this.start = start;
+    }
+
+    public String getPID() {
+        return this.PID;
+    }
+    public void setPID(String PID) {
+        this.PID = PID;
     }
 }

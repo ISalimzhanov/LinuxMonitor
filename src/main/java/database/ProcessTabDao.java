@@ -16,7 +16,8 @@ public class ProcessTabDao {
         Document doc = new Document()
                 .append(ProcessTabProperties.NAME.name(), processTab.getName())
                 .append(ProcessTabProperties.STATUS.name(), processTab.getStatus())
-                .append(ProcessTabProperties.START.name(), processTab.getStart());
+                .append(ProcessTabProperties.START.name(), processTab.getStart())
+                .append(ProcessTabProperties.PID.name(), processTab.getPID());
         MongoDatabase db = DatabaseManager.getInstance(DBNAME);
         MongoCollection<Document> collection = db.getCollection(COLLECTION_NAME.concat(date));
         collection.insertOne(doc);
@@ -36,7 +37,8 @@ public class ProcessTabDao {
                         new ProcessTab(
                                 doc.getString(ProcessTabProperties.NAME.name()),
                                 doc.getString(ProcessTabProperties.STATUS.name()),
-                                doc.getString(ProcessTabProperties.START.name())
+                                doc.getString(ProcessTabProperties.START.name()),
+                                doc.getString(ProcessTabProperties.PID.name())
                         )
                 );
             }

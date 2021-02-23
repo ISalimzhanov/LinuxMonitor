@@ -41,6 +41,7 @@ public class WindowsMonitor extends Thread {
             HashMap<String, String> windowDetails = new HashMap<>();
             windowDetails.put("status", "FOCUSED");
             windowDetails.put("start", String.valueOf(LocalTime.now()));
+            windowDetails.put("PID", activeWindow.getPID().toString());
             this.cash.put(activeWindowTitle, windowDetails);
         }
         for (X11Api.Window window : allWindows) {
@@ -52,10 +53,11 @@ public class WindowsMonitor extends Thread {
                 HashMap<String, String> windowData = new HashMap<>();
                 windowData.put("status", "NOT FOCUSED");
                 windowData.put("start", String.valueOf(LocalTime.now()));
+                windowData.put("PID", window.getPID().toString());
                 this.cash.put(title, windowData);
             } else if (this.cash.get(title).get("status").equals("FOCUSED")) {
                 System.out.println(title);
-                ProcessTab pr = new ProcessTab(title, this.cash.get(title).get("status"), this.cash.get(title).get("start"));
+                ProcessTab pr = new ProcessTab(title, this.cash.get(title).get("status"), this.cash.get(title).get("start"), this.cash.get(title).get("PID"));
                 try{
                     ProcessTabDao.saveWindow(pr, dateNow);
                 }catch(UnknownHostException e){}
@@ -67,8 +69,8 @@ public class WindowsMonitor extends Thread {
         for (Map.Entry<String, HashMap<String, String>> windowDetails : this.cash.entrySet()) {
             String title = windowDetails.getKey();
             if (!windowTitles.contains(title)) {
-                System.out.println(title);
-                ProcessTab pr = new ProcessTab(title, windowDetails.getValue().get("status"), windowDetails.getValue().get("start"));
+                System.out.println(title);//GET PID
+                ProcessTab pr = new ProcessTab(title, windowDetails.getValue().get("status"), windowDetails.getValue().get("start"), windowDetails.getValue().get("PID"));
                 try{
                     ProcessTabDao.saveWindow(pr, dateNow);
                     System.out.println("db saving");
@@ -86,7 +88,7 @@ public class WindowsMonitor extends Thread {
         LocalDateTime now = LocalDateTime.now();
         String dateNow = dtf.format(now);
         for (Map.Entry<String, HashMap<String, String>> stringHashMapEntry : this.cash.entrySet()) {
-            ProcessTab pr = new ProcessTab(stringHashMapEntry.getKey(), stringHashMapEntry.getValue().get("status"), stringHashMapEntry.getValue().get("start"));
+            ProcessTab pr = new ProcessTab(stringHashMapEntry.getKey(), stringHashMapEntry.getValue().get("status"), stringHashMapEntry.getValue().get("start"), stringHashMapEntry.getValue().get("PID"));
             try{
                 ProcessTabDao.saveWindow(pr, dateNow);
             }catch(UnknownHostException e){};
