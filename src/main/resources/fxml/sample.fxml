@@ -19,4 +19,7 @@
 
     </Button>
 
+    <Button fx:id="windowsButton" onAction="#openWindowStats" text="Open windows stats">
+
+    </Button>
 </VBox>
