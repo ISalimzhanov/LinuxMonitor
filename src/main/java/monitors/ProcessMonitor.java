@@ -3,7 +3,7 @@ package monitors;
 import database.ProcessDAO;
 import database.ProcessTab;
 import database.ProcessTabDao;
-import packing.Packing;
+
 import database.ProcessRecord;
 
 import java.net.UnknownHostException;
@@ -102,7 +102,7 @@ public class ProcessMonitor extends Thread {
     }
 
     private void transferToCash(LinkedList<Map<String, String>> processes) {
-        Packing packager = new Packing("processes.json");
+
         HashMap<String, String> processData;
         String[] commandArray;
         String[] currentProcesses = new String[processes.size()];

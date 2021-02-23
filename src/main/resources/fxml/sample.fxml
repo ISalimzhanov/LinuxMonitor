@@ -6,11 +6,11 @@
 <?import javafx.scene.text.*?>
 
 <VBox alignment="center" prefHeight="300" prefWidth="300" spacing="10" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="monitor_ui.Controller">
-   <Label fx:id="timer" text="00:00:00">
-      <font>
-         <Font size="36.0" />
-      </font>
-   </Label>
+    <Label fx:id="timer" text="00:00:00">
+        <font>
+            <Font size="36.0" />
+        </font>
+    </Label>
 
 
     <Button fx:id="mainButton" onAction="#alertExample" text="Start monitor" />
@@ -19,4 +19,7 @@
 
     </Button>
 
+    <Button fx:id="windowsButton" onAction="#openWindowStats" text="Open windows stats">
+
+    </Button>
 </VBox>

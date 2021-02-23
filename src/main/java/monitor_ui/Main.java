@@ -18,7 +18,7 @@ public class Main extends Application {
         Controller controller = loader.getController();
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
-        ProcessMonitor processMonitor = ProcessMonitor.getInstance("asanali");
+        ProcessMonitor processMonitor = ProcessMonitor.getInstance("dcode");
         WindowsMonitor windowsMonitor = WindowsMonitor.getInstance();
         processMonitor.start();
         windowsMonitor.start();
