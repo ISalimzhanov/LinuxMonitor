@@ -35,7 +35,7 @@ public class Controller {
 
 
     @FXML
-    public void alertExample(){
+    public void startTimer(){
         Alert alert = new Alert(Alert.AlertType.INFORMATION, "Button clicked");
         alert.showAndWait();
     }
@@ -80,6 +80,7 @@ public class Controller {
             e.printStackTrace();
         }
     }
+
 
     @FXML
     public void openStats(){

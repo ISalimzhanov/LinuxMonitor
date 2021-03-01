@@ -13,7 +13,7 @@
     </Label>
 
 
-    <Button fx:id="mainButton" onAction="#alertExample" text="Start monitor" />
+    <Button fx:id="mainButton" onAction="#startTimer" text="Start monitor" />
     <DatePicker fx:id="datePicker" prefHeight="28.0" prefWidth="167.0" />
     <Button fx:id="statsButton" onAction="#openStats" text="Open day stats">
 
