@@ -18,6 +18,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import monitor_ui.timer.TrackerTimer;
+import monitors.ProcessMonitor;
+import monitors.WindowsMonitor;
 
 
 import java.io.IOException;
@@ -32,19 +34,19 @@ public class Controller {
 
     @FXML private DatePicker datePicker;
     @FXML private Label timer;
-    @FXML private Button mainButton;
     private Timeline timeline;
 
     private TrackerTimer trackerTimer = new TrackerTimer();
+    ProcessMonitor processMonitor = ProcessMonitor.getInstance();
+    WindowsMonitor windowsMonitor = WindowsMonitor.getInstance();
 
 
     @FXML
     public void initialize() {
         datePicker.setValue(NOW_LOCAL_DATE());
+        startTimer();
     }
 
-
-    @FXML
     public void startTimer(){
 
         timeline = new Timeline(new KeyFrame(Duration.millis(1), new EventHandler<ActionEvent>() {
@@ -55,20 +57,13 @@ public class Controller {
         }));
         timeline.setCycleCount(Timeline.INDEFINITE);
         timeline.setAutoReverse(false);
-        mainButton.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                if(trackerTimer.timerOn) {
-                    timeline.play();
-                    trackerTimer.timerOn = false;
-                    mainButton.setText("Stop");
-                } else {
-                    timeline.pause();
-                    trackerTimer.timerOn = true;
-                    mainButton.setText("Start");
-                }
-            }
-        });
+
+        if(trackerTimer.programStart){
+            trackerTimer.timerOff = false;
+            trackerTimer.programStart = false;
+            timeline.play();
+            startTracking();
+        }
     }
 
     @FXML
@@ -187,6 +182,42 @@ public class Controller {
         String date = new SimpleDateFormat("dd-MM-yyyy").format(Calendar.getInstance().getTime());
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
         return LocalDate.parse(date , formatter);
+    }
+
+    void startTracking(){
+
+        ProcessMonitor processMonitor = ProcessMonitor.getInstance();
+        WindowsMonitor windowsMonitor = WindowsMonitor.getInstance();
+        launch();
+        Runtime runtime = Runtime.getRuntime();
+        runtime.addShutdownHook(
+                new Thread() {
+                    public void run() {
+                        pauseTracking();
+                    }
+                }
+        );
+    }
+
+    public void pauseTracking() {
+        processMonitor.setKeepRunning(false);
+        windowsMonitor.setKeepRunning(false);
+        try {
+            processMonitor.join();
+            windowsMonitor.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void unpauseTracking() {
+        processMonitor.resume();
+        windowsMonitor.resume();
+    }
+
+    public void launch() {
+        processMonitor.start();
+        windowsMonitor.start();
     }
 
 }

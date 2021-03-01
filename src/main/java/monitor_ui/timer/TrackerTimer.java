@@ -6,7 +6,9 @@ import javafx.scene.text.Text;
 public class TrackerTimer {
 
     public int mins = 0, secs = 0, millis = 0;
-    public boolean timerOn = true;
+    public boolean timerOff = true;
+    public boolean programStart = true;
+
 
     public void change(Label text) {
         if(millis == 1000) {

@@ -9,22 +9,6 @@ import monitors.*;
 
 public class Main extends Application {
 
-    public void pause(ProcessMonitor processMonitor, WindowsMonitor windowsMonitor) {
-        processMonitor.setKeepRunning(false);
-        windowsMonitor.setKeepRunning(false);
-        try {
-            processMonitor.join();
-            windowsMonitor.join();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void launch(ProcessMonitor processMonitor, WindowsMonitor windowsMonitor) {
-        processMonitor.start();
-        windowsMonitor.start();
-    }
-
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -35,18 +19,6 @@ public class Main extends Application {
         Controller controller = loader.getController();
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
-        ProcessMonitor processMonitor = ProcessMonitor.getInstance();
-        WindowsMonitor windowsMonitor = WindowsMonitor.getInstance();
-        launch(processMonitor, windowsMonitor);
-        Runtime runtime = Runtime.getRuntime();
-        runtime.addShutdownHook(
-                new Thread() {
-                    public void run() {
-                        pause(processMonitor, windowsMonitor);
-                    }
-                }
-        );
-
     }
 
     public static void main(String[] args) {
