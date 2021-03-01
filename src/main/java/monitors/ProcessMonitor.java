@@ -1,9 +1,6 @@
 package monitors;
 
 import database.ProcessDAO;
-import database.ProcessTab;
-import database.ProcessTabDao;
-
 import database.ProcessRecord;
 
 import java.net.UnknownHostException;
@@ -22,6 +19,14 @@ public class ProcessMonitor extends Thread {
     private ProcessMonitor(String user) {
         username = user;
         cash = new HashMap<>();
+    }
+
+    public static ProcessMonitor getInstance() {
+        String user = System.getProperty("user.name");
+        if (!instance.containsKey(user)) {
+            instance.put(user, new ProcessMonitor(user));
+        }
+        return instance.get(user);
     }
 
     public static ProcessMonitor getInstance(String user) {
@@ -94,9 +99,10 @@ public class ProcessMonitor extends Thread {
                     stringHashMapEntry.getValue().get("TTY"), stringHashMapEntry.getValue().get("PID"),
                     stringHashMapEntry.getValue().get("START"), stringHashMapEntry.getValue().get("VSZ"),
                     stringHashMapEntry.getValue().get("COMMAND"));
-            try{
+            try {
                 ProcessDAO.saveProcess(pr, dateNow);
-            }catch(UnknownHostException e){};
+            } catch (UnknownHostException ignored) {
+            }
         }
         this.cash.clear();
     }
@@ -145,9 +151,10 @@ public class ProcessMonitor extends Thread {
                         this.cash.get(name).get("TTY"), this.cash.get(name).get("PID"),
                         this.cash.get(name).get("START"), this.cash.get(name).get("VSZ"),
                         this.cash.get(name).get("COMMAND"));
-                try{
+                try {
                     ProcessDAO.saveProcess(proc, dateNow);
-                }catch(UnknownHostException e){}
+                } catch (UnknownHostException ignored) {
+                }
                 toDelete.add(name);
             }
         }

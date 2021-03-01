@@ -1,7 +1,6 @@
 package monitors;
 
 import X.X11Api;
-import database.ProcessDAO;
 import database.ProcessTabDao;
 import database.ProcessTab;
 
@@ -30,8 +29,12 @@ public class WindowsMonitor extends Thread {
     }
 
     public void transferToCash(X11Api.Window[] allWindows, X11Api.Window activeWindow) throws X11Api.X11Exception {
-        System.out.println("start transfer");
-        String activeWindowTitle = activeWindow.getTitle();
+        String activeWindowTitle;
+        try {
+            activeWindowTitle = activeWindow.getTitle();
+        } catch (X11Api.X11Exception exception) {
+            return;
+        }
         LinkedList<String> windowTitles = new LinkedList<>();
         windowTitles.add(activeWindowTitle);
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
@@ -45,7 +48,12 @@ public class WindowsMonitor extends Thread {
             this.cash.put(activeWindowTitle, windowDetails);
         }
         for (X11Api.Window window : allWindows) {
-            String title = window.getTitle();
+            String title;
+            try {
+                title = window.getTitle();
+            } catch (X11Api.X11Exception exception) {
+                continue;
+            }
             if (title.equals(activeWindowTitle))
                 continue;
             windowTitles.add(title);
@@ -56,11 +64,11 @@ public class WindowsMonitor extends Thread {
                 windowData.put("PID", window.getPID().toString());
                 this.cash.put(title, windowData);
             } else if (this.cash.get(title).get("status").equals("FOCUSED")) {
-                System.out.println(title);
                 ProcessTab pr = new ProcessTab(title, this.cash.get(title).get("status"), this.cash.get(title).get("start"), this.cash.get(title).get("PID"));
-                try{
+                try {
                     ProcessTabDao.saveWindow(pr, dateNow);
-                }catch(UnknownHostException e){}
+                } catch (UnknownHostException ignored) {
+                }
                 this.cash.remove(title);
             }
         }
@@ -69,12 +77,11 @@ public class WindowsMonitor extends Thread {
         for (Map.Entry<String, HashMap<String, String>> windowDetails : this.cash.entrySet()) {
             String title = windowDetails.getKey();
             if (!windowTitles.contains(title)) {
-                System.out.println(title);//GET PID
                 ProcessTab pr = new ProcessTab(title, windowDetails.getValue().get("status"), windowDetails.getValue().get("start"), windowDetails.getValue().get("PID"));
-                try{
+                try {
                     ProcessTabDao.saveWindow(pr, dateNow);
-                    System.out.println("db saving");
-                }catch(UnknownHostException e){}
+                } catch (UnknownHostException ignored) {
+                }
                 toDelete.add(title);
             }
         }
@@ -89,9 +96,10 @@ public class WindowsMonitor extends Thread {
         String dateNow = dtf.format(now);
         for (Map.Entry<String, HashMap<String, String>> stringHashMapEntry : this.cash.entrySet()) {
             ProcessTab pr = new ProcessTab(stringHashMapEntry.getKey(), stringHashMapEntry.getValue().get("status"), stringHashMapEntry.getValue().get("start"), stringHashMapEntry.getValue().get("PID"));
-            try{
+            try {
                 ProcessTabDao.saveWindow(pr, dateNow);
-            }catch(UnknownHostException e){};
+            } catch (UnknownHostException ignored) {
+            }
         }
         this.cash.clear();
     }
@@ -101,8 +109,8 @@ public class WindowsMonitor extends Thread {
         X11Api.Display display = new X11Api.Display();
         while (this.keepRunning) {
             try {
-                X11Api.Window[] allWindows = display.getWindows();
                 X11Api.Window activeWindow = display.getActiveWindow();
+                X11Api.Window[] allWindows = display.getWindows();
                 this.transferToCash(allWindows, activeWindow);
             } catch (X11Api.X11Exception e) {
                 e.printStackTrace();
