@@ -1,12 +1,14 @@
 package monitor_ui.timer;
 
+import javafx.scene.control.Label;
 import javafx.scene.text.Text;
 
 public class TrackerTimer {
 
-    int mins = 0, secs = 0, millis = 0;
+    public int mins = 0, secs = 0, millis = 0;
+    public boolean timerOn = true;
 
-    void change(Text text) {
+    public void change(Label text) {
         if(millis == 1000) {
             secs++;
             millis = 0;

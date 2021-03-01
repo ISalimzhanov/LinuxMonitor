@@ -4,14 +4,20 @@ import database.ProcessRecord;
 import database.ProcessDAO;
 import database.ProcessTab;
 import database.ProcessTabDao;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
+import javafx.util.Duration;
+import monitor_ui.timer.TrackerTimer;
 
 
 import java.io.IOException;
@@ -26,6 +32,10 @@ public class Controller {
 
     @FXML private DatePicker datePicker;
     @FXML private Label timer;
+    @FXML private Button mainButton;
+    private Timeline timeline;
+
+    private TrackerTimer trackerTimer = new TrackerTimer();
 
 
     @FXML
@@ -36,8 +46,29 @@ public class Controller {
 
     @FXML
     public void startTimer(){
-        Alert alert = new Alert(Alert.AlertType.INFORMATION, "Button clicked");
-        alert.showAndWait();
+
+        timeline = new Timeline(new KeyFrame(Duration.millis(1), new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                trackerTimer.change(timer);
+            }
+        }));
+        timeline.setCycleCount(Timeline.INDEFINITE);
+        timeline.setAutoReverse(false);
+        mainButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                if(trackerTimer.timerOn) {
+                    timeline.play();
+                    trackerTimer.timerOn = false;
+                    mainButton.setText("Stop");
+                } else {
+                    timeline.pause();
+                    trackerTimer.timerOn = true;
+                    mainButton.setText("Start");
+                }
+            }
+        });
     }
 
     @FXML
