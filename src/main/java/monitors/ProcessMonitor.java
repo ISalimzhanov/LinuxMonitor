@@ -63,7 +63,7 @@ public class ProcessMonitor extends Thread {
     }
 
     private boolean threshold(Map<String, String> processDetails) {
-        return processDetails.get("USER").equals(this.username) && processDetails.get("STAT").equals("R") && Float.parseFloat(processDetails.get("%CPU")) > 0;
+        return processDetails.get("USER").equals(this.username) && processDetails.get("STAT").charAt(0) == 'R' && Float.parseFloat(processDetails.get("%CPU")) > 0;
     }
 
     public LinkedList<Map<String, String>> getActive() {
