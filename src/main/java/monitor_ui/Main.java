@@ -9,8 +9,25 @@ import monitors.*;
 
 public class Main extends Application {
 
+    public void pause(ProcessMonitor processMonitor, WindowsMonitor windowsMonitor) {
+        processMonitor.setKeepRunning(false);
+        windowsMonitor.setKeepRunning(false);
+        try {
+            processMonitor.join();
+            windowsMonitor.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void launch(ProcessMonitor processMonitor, WindowsMonitor windowsMonitor) {
+        processMonitor.start();
+        windowsMonitor.start();
+    }
+
+
     @Override
-    public void start(Stage primaryStage) throws Exception{
+    public void start(Stage primaryStage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/sample.fxml"));
         primaryStage.setTitle("Linux Monitor");
         FXMLLoader loader = new FXMLLoader();
@@ -20,20 +37,12 @@ public class Main extends Application {
         primaryStage.show();
         ProcessMonitor processMonitor = ProcessMonitor.getInstance();
         WindowsMonitor windowsMonitor = WindowsMonitor.getInstance();
-        processMonitor.start();
-        windowsMonitor.start();
+        launch(processMonitor, windowsMonitor);
         Runtime runtime = Runtime.getRuntime();
         runtime.addShutdownHook(
                 new Thread() {
                     public void run() {
-                        //processMonitor.setKeepRunning(false);
-                        windowsMonitor.setKeepRunning(false);
-                        try {
-                            //processMonitor.join();
-                            windowsMonitor.join();
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
+                        pause(processMonitor, windowsMonitor);
                     }
                 }
         );
