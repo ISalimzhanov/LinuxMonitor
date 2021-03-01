@@ -20,6 +20,11 @@ public class Main extends Application {
         }
     }
 
+    public void unpause(ProcessMonitor processMonitor, WindowsMonitor windowsMonitor) {
+        processMonitor.resume();
+        windowsMonitor.resume();
+    }
+
     public void launch(ProcessMonitor processMonitor, WindowsMonitor windowsMonitor) {
         processMonitor.start();
         windowsMonitor.start();
@@ -38,6 +43,8 @@ public class Main extends Application {
         ProcessMonitor processMonitor = ProcessMonitor.getInstance();
         WindowsMonitor windowsMonitor = WindowsMonitor.getInstance();
         launch(processMonitor, windowsMonitor);
+        pause(processMonitor, windowsMonitor);
+        unpause(processMonitor, windowsMonitor);
         Runtime runtime = Runtime.getRuntime();
         runtime.addShutdownHook(
                 new Thread() {
