@@ -12,7 +12,7 @@ There are three classes and one fxml for the layout:
 * Controller: <br />
 *This class is for interaction logic with user. It is responsible for click listeners and table creation with processes information.* 
 * Main: <br />
-*Main class for running program. It loads sample.fxml layout.*
+*Main class for running program. It loads the main layout.*
  
 
 ### Database component
