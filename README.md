@@ -15,3 +15,20 @@ There are three classes and one fxml for the layout:
 *Main class for running program. It loads sample.fxml layout.*
  
 
+### Database component
+This component is responsible for storing information about processes. We used MongoDB for it. Database stores information of processes resource utilization for particular date.
+ 
+* DatabaseManager: <br /> 
+*Singleton manager for the database* 
+* ProcessDao: <br />
+*This class contains queries for process information addition and getting of all processes information for particular date.*   
+* ProcessProperties: <br />
+*Enum class with process properties*
+* ProcessRecord: <br />
+*Data class which is stores such variables as RAM and other resource utilization*
+* ProcessTab: <br /> 
+*Data class which is stores data variables for the tab*
+* ProcessTabDao: <br />
+*This class contains queries for tab information addition and getting of all tab information for particular date*
+* ProcessTabProperties: <br />
+*Enum class with tab properties*
