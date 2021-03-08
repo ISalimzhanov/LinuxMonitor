@@ -5,17 +5,17 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import monitors.*;
+
 
 public class Main extends Application {
 
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("/fxml/sample.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/fxml/main_layout.fxml"));
         primaryStage.setTitle("Linux Monitor");
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("/fxml/sample.fxml"));
+        loader.setLocation(getClass().getResource("/fxml/main_layout.fxml"));
         Controller controller = loader.getController();
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
