@@ -107,30 +107,13 @@ public class WindowsMonitor extends Thread {
 
     public void run() {
         X11Api.Display display = new X11Api.Display();
-        String lastActiveTitle = null;
-        LinkedList<String> lastWindowsTitles = new LinkedList<>();
         while (this.keepRunning) {
             try {
-                X11Api.Window activeWindow;
-                X11Api.Window[] notActiveWindows;
-                activeWindow = display.getActiveWindow();
-                notActiveWindows = display.getWindows();
-                LinkedList<String> windowsTitles = new LinkedList<>();
-                try {
-                    for (X11Api.Window window : notActiveWindows) {
-                        windowsTitles.add(window.getTitle());
-                    }
-                    boolean newActiveWindow = lastActiveTitle != null && !lastActiveTitle.equals(activeWindow.getTitle());
-                    boolean newWindows = !windowsTitles.equals(lastWindowsTitles);
-                    if (!newActiveWindow && !newWindows) {
-                        continue;
-                    }
-                    this.transferToCash(notActiveWindows, activeWindow);
-                    lastActiveTitle = activeWindow.getTitle();
-                    lastWindowsTitles = windowsTitles;
-                } catch (X11Api.X11Exception ignored) {
-                }
-            } catch (X11Api.X11Exception ignored) {
+                X11Api.Window activeWindow = display.getActiveWindow();
+                X11Api.Window[] allWindows = display.getWindows();
+                this.transferToCash(allWindows, activeWindow);
+            } catch (X11Api.X11Exception e) {
+                e.printStackTrace();
             }
         }
         this.storeCashData();

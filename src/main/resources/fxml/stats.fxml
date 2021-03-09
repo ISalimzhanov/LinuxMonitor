@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox fx:id="vboxContainer" alignment="center" prefHeight="600" prefWidth="1000" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="monitor_ui.Controller">
+   <children>
+<!--      <TableView id="tableView" prefHeight="600.0" prefWidth="1000.0">-->
+<!--        <columns>-->
+<!--            <TableColumn id="user" prefWidth="100.0" text="User" />-->
+<!--            <TableColumn id="NAME" prefWidth="125.0" text="Name" />-->
+<!--            <TableColumn id="CPU" prefWidth="75.0" text="CPU" />-->
+<!--            <TableColumn id="TIME" prefWidth="75.0" text="Time" />-->
+<!--            <TableColumn id="MEMORY_UTIL" prefWidth="75.0" text="RAM" />-->
+<!--            <TableColumn id="STAT" prefWidth="75.0" text="STAT" />-->
+<!--            <TableColumn id="RSS" prefWidth="75.0" text="RSS" />-->
+<!--            <TableColumn id="TTY" prefWidth="75.0" text="TTY" />-->
+<!--            <TableColumn id="START" prefWidth="75.0" text="Start time" />-->
+<!--            <TableColumn id="VSZ" prefWidth="75.0" text="VSZ" />-->
+<!--            <TableColumn id="COMMAND" prefWidth="100.0" text="Command" />-->
+<!--            <TableColumn id="PID" prefWidth="75.0" text="PID" />-->
+<!--        </columns>-->
+<!--      </TableView>-->
+
+   </children>
+
+</VBox>
