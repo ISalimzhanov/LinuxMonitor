@@ -18,7 +18,7 @@ public class Main extends Application {
         Process p;
         int ex=1;
         try{
-            p = Runtime.getRuntime().exec("sudo systemctl status mongod");
+            p = Runtime.getRuntime().exec("sudo systemctl start mongod");
             BufferedReader br = new BufferedReader(
                     new InputStreamReader(p.getInputStream()));
             while ((s = br.readLine()) != null)
