@@ -81,7 +81,7 @@ If focus changed/new window was created/some window was closed then:
 ### Deployment
 * Program can be started by running LinuxMonitorUi-1.0-SNAPSHOT-jar-with-dependencies.jar using following command in a directory where jar is located. "sudo" is required since the program starts mongodb and for that it needs the rights of superuser:
 > sudo java -jar LinuxMonitorUi-1.0-SNAPSHOT-jar-with-dependencies.jar <br>
-* Program does not require installation of any kind of software before using it, except for Amazon Corretto 8 JDK(link:https://docs.aws.amazon.com/corretto/latest/corretto-8-ug/downloads-list.html)
+* For Ubuntu, program does not require installation of any kind of software before using it, except for Amazon Corretto 8 JDK(link:https://docs.aws.amazon.com/corretto/latest/corretto-8-ug/downloads-list.html). For other Linux distributions it might also need pre-installed ***mongodb *** and ***maven***.
 * .jar can be created from files by running ***Maven Build*** on ***package*** phase of .jar artifact in IDE
 * For this to be possible we added plugin to ***pom.xml*** called ***maven-assembly-plugin*** of ***3.3.0*** version. It packs all the packages into .jar
 * After buiding .jar it is stored in <project folder>/target
